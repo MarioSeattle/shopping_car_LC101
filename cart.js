@@ -1,3 +1,4 @@
+//Array of items available
 const ITEMS = [
     {
         "name": "Item 1",
@@ -27,18 +28,26 @@ const ITEMS = [
 ];
 
 const shoppingCart = {
+
     cart: [],
     render: function(){
+
+        //If no items in the cart hide the form
+
         let subtotal = 0;
 
         $(".cart").empty();
 
         if (this.cart.length == 0) {
+
             $("#shippingForm").hide();
             return;
         }
 
+        //The loop will add the items to the shopping cart
+
         for(let i = 0; i< this.cart.length; i++){
+
             let itemDiv = $('<div class="col col-xs-12 col-md-12 col-lg-12"></div>');
             let name = $('<span class="col col-xs-12 col-md-6 col-lg-6">' + this.cart[i].name + '</span>');
             let price = $('<span class="col col-xs-12 col-md-6 col-lg-6">' + this.cart[i].price.toFixed(2) + '</span>');
@@ -50,6 +59,7 @@ const shoppingCart = {
             subtotal += this.cart[i].price;
         }
 
+        //the following code will add the bottoms and calculate the tax
 
         let taxes = subtotal * 10/100;
         let total = subtotal + taxes;
@@ -80,9 +90,11 @@ const shoppingCart = {
 
 const shoppingList = {
     render: function(){
+
         $("#product-list").empty();
 
         for (let i=0; i<ITEMS.length; i++){
+
             let product = $('<div class="col col-xs-12 col-md-6 col-lg-4"></div>');
             let image = $('<div><img src="' + ITEMS[i].image + '"></div>');
             let title = $('<h2>' +  ITEMS[i].name + '</h2>');
@@ -105,11 +117,16 @@ const shoppingList = {
     }
 };
 
+//Ready to submit the form
+
 $( document ).ready(function() {
+
     shoppingList.render();
     shoppingCart.render();
     $("#shippingForm").on("submit", function(event){
+
         event.preventDefault();
         alert("Thanks for buying!");
+
     });
 });
